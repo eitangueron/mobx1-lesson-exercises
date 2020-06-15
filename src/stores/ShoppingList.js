@@ -4,19 +4,26 @@ import { Item } from './Item'
 
 export class ShoppingList {
     // your code here
-    list = [];
-    length;
-    checkItem = () => {
-        // your code here
+    @observable list = [];
+    @observable length;
+
+    @action checkItem = (name) => {
+        let item = this.list.find(i => i.name === name)
+        item.completed = !item.completed
+    } 
+
+    @action addItem = (name) => {
+        this.list.push(new Item(name))
     }
-    addItem = () => {
-        // your code here
+
+    @action editItem = (itemName, newLocation) => {
+        let item = this.list.find( i => i.name === itemName)
+        item.location = newLocation
     }
-    editItem = () => {
-        // your code here
-    }
-    deleteItem = () => {
-        // your code here
+
+    @action deleteItem = (name) => {
+        let itemIndex = this.list.findIndex( i => i.name === name)
+        this.list.splice(itemIndex,1)
     } 
 }
 
